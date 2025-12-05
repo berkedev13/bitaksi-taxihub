@@ -1,0 +1,19 @@
+# Go binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go build folders
+/bin
+/build
+
+# MacOS 
+.DS_Store
+
+# Logs
+*.log
+
+# Environment files
+.env
