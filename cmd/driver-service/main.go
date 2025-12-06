@@ -1,3 +1,11 @@
+// Package main TaxiHub Driver Service
+//
+// @title       TaxiHub Driver Service API
+// @version     1.0
+// @description Driver management microservice for Bitaksi TaxiHub case
+// @host        localhost:8081
+// @BasePath    /
+
 package main
 
 import (

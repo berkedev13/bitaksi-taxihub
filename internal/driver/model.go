@@ -34,3 +34,21 @@ type CreateDriverRequest struct {
 	Lat       float64 `json:"lat" binding:"required"`
 	Lon       float64 `json:"lon" binding:"required"`
 }
+
+type UpdateDriverRequest struct {
+	FirstName *string  `json:"firstName,omitempty"`
+	LastName  *string  `json:"lastName,omitempty"`
+	Plate     *string  `json:"plate,omitempty"`
+	TaxiType  *string  `json:"taxiType,omitempty"`
+	CarBrand  *string  `json:"carBrand,omitempty"`
+	CarModel  *string  `json:"carModel,omitempty"`
+	Lat       *float64 `json:"lat,omitempty"`
+	Lon       *float64 `json:"lon,omitempty"`
+}
+
+type NearbyDriver struct {
+	FirstName  string  `json:"firstName"`
+	LastName   string  `json:"lastName"`
+	Plate      string  `json:"plate"`
+	DistanceKm float64 `json:"distanceKm"`
+}
