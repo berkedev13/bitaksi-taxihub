@@ -1,0 +1,215 @@
+basePath: /
+definitions:
+  passenger.CreatePassengerRequest:
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      lat:
+        type: number
+      lon:
+        type: number
+      phone:
+        type: string
+    required:
+    - firstName
+    - lastName
+    - lat
+    - lon
+    - phone
+    type: object
+  passenger.Location:
+    properties:
+      lat:
+        type: number
+      lon:
+        type: number
+    type: object
+  passenger.Passenger:
+    properties:
+      createdAt:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: string
+      lastName:
+        type: string
+      location:
+        $ref: '#/definitions/passenger.Location'
+      phone:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  passenger.UpdatePassengerRequest:
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      lat:
+        type: number
+      lon:
+        type: number
+      phone:
+        type: string
+    type: object
+host: localhost:8082
+info:
+  contact: {}
+  description: Passenger management microservice for Bitaksi TaxiHub case
+  title: TaxiHub Passenger Service API
+  version: "1.0"
+paths:
+  /passengers:
+    get:
+      consumes:
+      - application/json
+      description: Lists passengers with pagination
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/passenger.Passenger'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: List passengers
+      tags:
+      - passengers
+    post:
+      consumes:
+      - application/json
+      description: Creates a new passenger with basic info and current location
+      parameters:
+      - description: Passenger info
+        in: body
+        name: passenger
+        required: true
+        schema:
+          $ref: '#/definitions/passenger.CreatePassengerRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/passenger.Passenger'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Create a new passenger
+      tags:
+      - passengers
+  /passengers/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Partially updates passenger info
+      parameters:
+      - description: Passenger ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Passenger update info
+        in: body
+        name: passenger
+        required: true
+        schema:
+          $ref: '#/definitions/passenger.UpdatePassengerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/passenger.Passenger'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update a passenger
+      tags:
+      - passengers
+  /passengers/nearby:
+    get:
+      consumes:
+      - application/json
+      description: Returns passengers within 6km radius of given location
+      parameters:
+      - description: Latitude
+        in: query
+        name: lat
+        required: true
+        type: number
+      - description: Longitude
+        in: query
+        name: lon
+        required: true
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/passenger.Passenger'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get nearby passengers
+      tags:
+      - passengers
+swagger: "2.0"
