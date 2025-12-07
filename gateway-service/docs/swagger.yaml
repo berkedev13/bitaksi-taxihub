@@ -1,0 +1,162 @@
+basePath: /
+host: localhost:8080
+info:
+  contact: {}
+  description: API Gateway for Bitaksi TaxiHub case
+  title: TaxiHub Gateway API
+  version: "1.0"
+paths:
+  /drivers:
+    get:
+      description: Proxies /drivers isteklerini driver-service'e iletir
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            additionalProperties: true
+            type: object
+        "502":
+          description: Bad Gateway
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Proxy driver-service requests
+      tags:
+      - drivers
+      - gateway
+    post:
+      description: Proxies /drivers isteklerini driver-service'e iletir
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            additionalProperties: true
+            type: object
+        "502":
+          description: Bad Gateway
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Proxy driver-service requests
+      tags:
+      - drivers
+      - gateway
+  /health:
+    get:
+      description: Returns gateway service status
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Gateway health check
+      tags:
+      - health
+  /passengers:
+    get:
+      description: Proxies /passengers isteklerini passenger-service'e iletir
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            additionalProperties: true
+            type: object
+        "502":
+          description: Bad Gateway
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Proxy passenger-service requests
+      tags:
+      - passengers
+      - gateway
+    post:
+      description: Proxies /passengers isteklerini passenger-service'e iletir
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "429":
+          description: Too Many Requests
+          schema:
+            additionalProperties: true
+            type: object
+        "502":
+          description: Bad Gateway
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Proxy passenger-service requests
+      tags:
+      - passengers
+      - gateway
+swagger: "2.0"

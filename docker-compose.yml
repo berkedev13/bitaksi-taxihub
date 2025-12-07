@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  driver-service:
+    build: ./driver-service
+    container_name: driver-service
+    environment:
+      - DRIVER_SERVICE_PORT=8081
+      - MONGO_URI=mongodb://mongo:27017
+      - MONGO_DB_NAME=bitaksi
+      - DRIVER_COLLECTION=drivers
+    depends_on:
+      - mongo
+    ports:
+      - "8081:8081"
+
+  passenger-service:
+    build: ./passenger-service
+    container_name: passenger-service
+    environment:
+      - PASSENGER_SERVICE_PORT=8082
+      - MONGO_URI=mongodb://mongo:27017
+      - MONGO_DB_NAME=bitaksi
+      - PASSENGER_COLLECTION=passengers
+    depends_on:
+      - mongo
+    ports:
+      - "8082:8082"
+
+  gateway-service:
+    build: ./gateway-service
+    container_name: gateway-service
+    environment:
+      - GATEWAY_PORT=8080
+      - DRIVER_SERVICE_URL=http://driver-service:8081
+      - PASSENGER_SERVICE_URL=http://passenger-service:8082
+      - JWT_SECRET=jwtsecret123
+      - API_KEY=apikey123
+    depends_on:
+      - driver-service
+      - passenger-service
+    ports:
+      - "8080:8080"
+
+volumes:
+  mongo_data:
